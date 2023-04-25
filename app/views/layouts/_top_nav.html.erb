@@ -67,6 +67,15 @@
         </li>
         <li class="nav-item"><%= link_to 'about', class: 'nav-link' do %>About
         <% end %></li>
+        <ul class="navbar-nav">
+          <% if current_user %>
+            <li class="nav-item"> <%= link_to "Logout", '/logout', class: "nav-link" %></li>
+          <% else %>
+            <li class="nav-item">  <%= link_to 'Login', '/login', class: "nav-link" %> </li> 
+            <li class="nav-item"> <%= link_to 'Signup', '/signup', class: "nav-link" %></li>
+          <% end %>
+          <% yield %>
+        </ul>
       </ul>
     </div>
   </div>
