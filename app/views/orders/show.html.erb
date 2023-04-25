@@ -8,8 +8,7 @@
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
     <h2>Items Ordered</h2>
-    <% @order.line_items.each do |item| 
-      %>
+    <% @order.line_items.each do |item| %>
 
       <table class="table">
     <thead>
@@ -20,8 +19,8 @@
       <th scope="col">Quantity</th>
       <th scope="col">Total</th>
     </tr>
-  </thead>
-      <h4> <%= render 'line_items', product: item.product, line_item: item %>
+       </thead>
+      <h4> <%= render "line_items", product: item.product, line_item: item %>
       <% end %>
       </h4>
     </tbody>
@@ -31,6 +30,6 @@
   </div>
   </div>
 
-  <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
+  <%= link_to "Continue Shopping", root_path, class: "btn btn-lg btn-primary" %>
 
 </section>

@@ -1,5 +1,4 @@
 class OrdersController < ApplicationController
-
   def show
     @order = Order.find(params[:id])
     @line_items = LineItem.all.where(order_id: params[:id])
@@ -8,15 +7,14 @@ class OrdersController < ApplicationController
 
   def create
     charge = perform_stripe_charge
-    order  = create_order(charge)
+    order = create_order(charge)
 
     if order.valid?
       empty_cart!
-      redirect_to order, notice: 'Your Order has been placed.'
+      redirect_to order, notice: "Your Order has been placed."
     else
       redirect_to cart_path, flash: { error: order.errors.full_messages.first }
     end
-
   rescue Stripe::CardError => e
     redirect_to cart_path, flash: { error: e.message }
   end
@@ -30,10 +28,10 @@ class OrdersController < ApplicationController
 
   def perform_stripe_charge
     Stripe::Charge.create(
-      source:      params[:stripeToken],
-      amount:      cart_subtotal_cents,
+      source: params[:stripeToken],
+      amount: cart_subtotal_cents,
       description: "Khurram Virani's Jungle Order",
-      currency:    'cad'
+      currency: "cad",
     )
   end
 
@@ -51,11 +49,10 @@ class OrdersController < ApplicationController
         product: product,
         quantity: quantity,
         item_price: product.price,
-        total_price: product.price * quantity
+        total_price: product.price * quantity,
       )
     end
     order.save!
     order
   end
-
 end
